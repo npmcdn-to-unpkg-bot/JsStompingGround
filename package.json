@@ -1,0 +1,25 @@
+{
+  "name": "js-stomping-ground",
+  "version": "1.0.0",
+  "description": "My javascript stomping ground.",
+  "main": "watch.js",
+  "dependencies": {
+    "eslint": "^1.2.1",
+    "event-emitter": "^0.3.3",
+    "eslint-plugin-react": "^3.3.0",
+    "gulp-cli": "^0.2.0",
+    "lodash": "^3.10.0",
+    "gulp": "^3.9.0",
+    "object-assign": "^4.0.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "^4.1.4",
+    "chokidar": "^1.2.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint ./ --ext .js --ext .jsx"
+  },
+  "author": "Daniel James Williams",
+  "license": "ISC"
+}
