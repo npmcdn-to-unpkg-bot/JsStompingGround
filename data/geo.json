@@ -1,0 +1,16 @@
+{
+    "quadrant": {
+        "I": "I",
+        "II": "II",
+        "III": "III",
+        "IV": "IVS"
+    },
+    "sector": {
+        "Alpha": "Alpha",
+        "Beta": "Beta",
+        "Gamma": "Gamma",
+        "Delta": "Delta",
+        "Epsilon": "Epsilon",
+        "Zeta": "Zeta"
+    }
+}

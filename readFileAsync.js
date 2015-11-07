@@ -1,37 +1,34 @@
 var fs = require('fs');
 
+var loadFile = function (name) {
+	var path = getPath(name);
+	return new Promise((resolve, reject) => {
+		fs.readFile(path, 'utf8', function(err, data) {
+			err ? reject(err) : resolve(data);
+		});
+	});
+};
+var loadFileAsString = function(name) {
+		return loadFile(name);
+};
+var loadFileAsJson = function(name) {
+	return new Promise((resolve, reject) => {
+		loadFileAsString(name)
+			.then(data => JSON.parse(data.trim()))
+			.then(resolve)
+			.catch(reject);
+	});
+};
+var getPath = function(path) {
+	return __dirname + '/' + path;
+};
 
 module.exports = {
 	run: function() {
-		var self = this;
-		var people = null;
-		self.loadFile('people.json', (data) => {
-			var x = 0;
-			self.people = self.loadJson(data) || [];
-			self.people.forEach(item =>
-				console.log(`${++x}. ${item.first} ${item.last}, was loaded.`)
-			);
-		});
+		loadFileAsJson('data/geo.json')
+			.then(data => console.log(data.quadrant))
+			.catch(err => console.log(err));
 	},
-	loadFile: function(name, cb) {
-		var path = __dirname + '/data/' + name;
-		var file = fs.readFile(path, 'utf8', function(err, data) {
-			if(err) {
-				console.log('ERROR reading from "' + path + '".', err);
-			}
-			cb(data);
-		});
-	},
-	loadJson: function(data) {
-		var ret = null;
-		try {
-			ret = JSON.parse(data);
-		} catch(e) {
-			console.log('BOOM:', e);
-		};
-		return ret;
-	},
-	loadCsv: function(data) {
-
-	},
+	loadFileAsString: loadFileAsString,
+	loadFileAsJson: loadFileAsJson,
 }
