@@ -1,16 +1,27 @@
 {
-    "quadrant": {
-        "I": "I",
-        "II": "II",
-        "III": "III",
-        "IV": "IVS"
-    },
-    "sector": {
+    "sectors": {
         "Alpha": "Alpha",
         "Beta": "Beta",
         "Gamma": "Gamma",
         "Delta": "Delta",
         "Epsilon": "Epsilon",
-        "Zeta": "Zeta"
+        "Zeta": "Zeta",
+        "default": "Alpha"
+    },
+    "quadrants": {
+        "I": "I",
+        "II": "II",
+        "III": "III",
+        "IV": "IVS"
+    },
+    "areas": {
+        "E": "E",
+        "W": "W",
+        "N": "N",
+        "S": "S",
+        "NE": "NE",
+        "SE": "SE",
+        "NW": "NW",
+        "SW": "SW"
     }
 }

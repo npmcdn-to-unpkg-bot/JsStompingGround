@@ -1,28 +1,46 @@
 'use strict';
-var util = require('util');
+var assign = require('object-assign');
 var myfs = require('./readFileAsync.js');
+var lo = require('lodash');
 
-function testVarVisibility(data) {
-    var quadrant = data.quadrant;
-    var sector = data.sector;
+// functions can access their parents props,
+// and their parents parents props, etc...
+function MyMapper(config) {
+    // console.log('MyMapper:', config.sectors);
+    var sectors = config.sectors || {};
+    var quadrants = config.quadrants || {};
+    var areas = config.areas || {};
+    var sector = config.sector || sectors.default || 'none';
 
-    function Constructor1() {
-        this.quadrant = quadrant.II;
-        this.InnerObject = new function() {
-            return {
-                sector: sector.Epsilon,
-            };
+    return (function() { // create yet another context
+        var _sector = sector;
+        return {
+            get sector () {
+                return _sector;
+            },
+            set sector (val) {
+                if(lo.contains(sectors, val)) {
+                    _sector = val;
+                } else {
+                    console.log(val + ' is not a valid sector.');
+                }
+            },
         };
-    }
-    var o = new Constructor1();
-    console.log(o);
+    })();
 }
 
+function test(o) {
+    console.log(o.sector);
+    o.sector = 'Zeta';
+    console.log(o.sector);
+    o.sector = 'Bingo';
+    console.log(o.sector);
+}
 
 module.exports = {
     run: function() {
         myfs.loadFileAsJson('data/geo.json')
-            .then(testVarVisibility);
+            .then(MyMapper)
+            .then(test);
     },
-
 }
