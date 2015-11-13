@@ -13,7 +13,8 @@ stdin.on('data', function (text) {
 });
 
 // , {ignored: /[\/\\]\./}
-chokidar.watch('./*.js').on('change', function(path) {
+chokidar.watch(['./*.js','./es2015/*.js']).on('change', function(path) {
+    console.log(path);
 	var key = require.resolve('./' + path);
 	delete require.cache[key];
 
@@ -44,7 +45,7 @@ chokidar.watch('./*.js').on('change', function(path) {
 
 
 
-// var repl = require('repl');
+//var repl = require('repl');
 //var replSvr = repl.start({prompt:'sky>'});
 
 //(function wait () {

@@ -1,15 +1,20 @@
+
+
+var rebels = [
+    {
+        name: 'Luke Skywalker',
+    },
+    {
+        name: 'Han Solo',
+    },
+];
+var noAccess = 'noAccess';
+var sectionTitle = function sectionTitle(title) {
+    console.log(`\nES6 ${title}`);
+}
+
 module.exports = {
     run: function() {
-
-        var rebels = [
-            {
-                name: 'Luke Skywalker',
-            },
-            {
-                name: 'Han Solo',
-            },
-        ];
-        var noAccess = 'noAccess';
 
         sectionTitle('Arrows Functions =>');
         rebels.map((e, i) => {
@@ -35,13 +40,14 @@ module.exports = {
 
         sectionTitle('Promises');
         function promiseFactory(duration) {
+            console.log('created');
             duration = duration || 0;
             return new Promise(function(resolve, reject) {
                 setTimeout(resolve, duration);
             });
         }
-
-        var p = promiseFactory(1000)
+console.log('wtf');
+        promiseFactory(1000)
             .then(function() {
                 console.log('promise #1 done');
                 return promiseFactory(2000);
@@ -55,9 +61,7 @@ module.exports = {
     },
 }
 
-function sectionTitle(title) {
-    console.log(`\nES6 ${title}`);
-}
+
 
 // var fibonacci = {
 //   [Symbol.iterator]() {
