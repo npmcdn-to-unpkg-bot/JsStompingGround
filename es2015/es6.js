@@ -14,7 +14,7 @@ var sectionTitle = function sectionTitle(title) {
 }
 
 module.exports = {
-    run: function() {
+    test: function() {
 
         sectionTitle('Arrows Functions =>');
         rebels.map((e, i) => {

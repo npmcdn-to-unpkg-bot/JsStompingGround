@@ -14,34 +14,32 @@ stdin.on('data', function (text) {
 
 // , {ignored: /[\/\\]\./}
 chokidar.watch(['./*.js','./es2015/*.js']).on('change', function(path) {
-    console.log(path);
 	var key = require.resolve('./' + path);
 	delete require.cache[key];
+    var mod = require(key) || {};
 
-    var lines = process.stdout.getWindowSize()[1];
-    for(var i = 0; i < lines; i++) {
-        console.log('\r\n');
+    var cmdHeader = [path];
+    if(mod.hasOwnProperty('test')) {
+        cmdHeader.push('test()');
+    } else {
+        cmdHeader.push('Did you forget to export a test function?');
     }
-    try {
-    	var job = require(key) || {};
-    	if(job.hasOwnProperty('run')) {
-		    job.run();
-    	} else {
-            console.log('.no run method found.');
-    	}
-    } catch (e) {
-        var props = Object.getOwnPropertyNames(e);
-        props.forEach(function(p) {
-            try {
-                var s = `Error.${p}=`;
-                console.log(s, e[p]);
-            } catch(e) { return 1; }
-        });
-    }
+    makeCmdHeader(cmdHeader);
+    mod.test();
 });
 
 
-
+function makeCmdHeader(cmdHeader) {
+    var line = '##################################################';
+    var prefix = '#  ';
+    var log = console.log;
+    
+    log(line);
+    for(var i = 0, len = cmdHeader.length; i < len; i++) {
+        log(prefix + cmdHeader[i]);
+    }
+    log(line);    
+}
 
 
 

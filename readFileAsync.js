@@ -2,7 +2,7 @@ var fs = require('fs');
 
 
 module.exports = {
-	run: function() {
+	test: function() {
 		var self = this;
 		var people = null;
 		self.loadFile('people.json', (data) => {
