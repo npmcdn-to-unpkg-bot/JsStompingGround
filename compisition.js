@@ -17,7 +17,7 @@ const lazy = (state) => ({
 
 
 module.exports = {
-    run: function() {
+    test: function() {
         var dog = assign({}, named({name:'rover'}), eater({}), sleeper({}), lazy({}));
 
         for(let key in dog) {

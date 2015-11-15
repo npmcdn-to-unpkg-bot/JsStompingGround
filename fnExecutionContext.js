@@ -38,7 +38,7 @@ function test(o) {
 }
 
 module.exports = {
-    run: function() {
+    test: function() {
         myfs.loadFileAsJson('data/geo.json')
             .then(MyMapper)
             .then(test);

@@ -15,10 +15,6 @@ function getTasks() {
 	return tasks.slice(0);
 }
 
-var data = ['cow', 'pig', 'hippo'];
-
-data.forEach(workflow);
-
 function workflow(item) {
 	var list = getTasks();
 	var _item = item;
@@ -34,4 +30,11 @@ function workflow(item) {
 			loop();
 		 }
 	})();
+}
+
+module.exports = {
+	test: function() {
+		var data = ['cow', 'pig', 'hippo'];
+		data.forEach(workflow);
+	}
 }
