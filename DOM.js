@@ -17,6 +17,5 @@ var app = document.getElementById('app').appendChild(frag);
 module.exports = {
     test: function() {
         console.log(document.documentElement.outerHTML);
-    }
+    },
 }
-

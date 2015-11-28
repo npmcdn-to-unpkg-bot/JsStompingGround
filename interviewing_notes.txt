@@ -1,0 +1,8 @@
+Two bibles of coding interview
+
+1) Cracking the coding interview (ctci)
+2) Programming interview exposed (pie)
+
+
+
+(skip brain teasers)

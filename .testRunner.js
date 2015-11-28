@@ -13,20 +13,21 @@ stdin.on('data', function (text) {
 });
 
 // , {ignored: /[\/\\]\./}
-chokidar.watch(['./*.js','./es2015/*.js']).on('change', function(path) {
-	var key = require.resolve('./' + path);
-	delete require.cache[key];
-    var mod = require(key) || {};
+chokidar.watch(['./*.js','./es2015/*.js'])
+        .on('change', function(path) {
+            var key = require.resolve('./' + path);
+            delete require.cache[key];
+            var mod = require(key) || {};
+            var hasTest = mod.hasOwnProperty('test');
+            var action = hasTest ? 'test()'
+                                 : 'Did you forget to export a test function?';
 
-    var cmdHeader = [path];
-    if(mod.hasOwnProperty('test')) {
-        cmdHeader.push('test()');
-    } else {
-        cmdHeader.push('Did you forget to export a test function?');
-    }
-    makeCmdHeader(cmdHeader);
-    mod.test();
-});
+            makeCmdHeader([path, action]);
+            try {
+                mod.test();
+            } catch(err) { console.log(err) }
+        });
+        
 
 
 function makeCmdHeader(cmdHeader) {
