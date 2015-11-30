@@ -1,0 +1,141 @@
+sequence of steps that solve a problem, and have the following properties
+
+1) accept zero of more inputs
+2) returns one or more outputs
+3) definite
+4) finiteness (terminates at some point, vs a program, which may be non terminating)
+5) effectiveness (steps should be feasible)
+
+
+
+Algothms
+Common Style
+... for each problem
+1) Identify the data objects
+2) What is to be accomplished
+3) Determine how to represent these objects
+4) Design complete algothms
+5) Analyze performance
+...and then
+6) Implementing (program design)
+7) verify
+8) evaluating performance
+9) documenting
+
+
+
+Terms
+Data Type
+Data Object
+Data Structure (ADT)
+Data Representation
+
+Data Type: refers to the kind of data
+    - program readability
+    - assign meaning to a sequence of bits (interpretation)
+    - compile in code generation
+
+
+Data Object: refers to the domain of any data type
+    ('A', 'B',... 'Z')
+    (... -2, -1, 0, 1, 2, ...)
+    (true, false)
+
+Data Structure: data object + operations
+    - (... -2, -1, 0, 1, 2, ...)
+    - Operations
+        1) sign (maybe this is a relationship, and not an operation)
+        2) <, >, <=, ==, !=, ...
+        3) +, -, /, *, ...
+
+Operations: have semantics governed(?) by Axioms or rules
+
+zero() -> natnum
+isZero(natnum) -> boolean
+add(natnum, natnum) -> natnum
+next(natnum) -> natnum
+equal(natnum, natnum) -> boolean
+
+
+ADT: to be triplet
+(D: domains, F: functions or operations, A: axioms)
+
+... so continue from above
+D: (natual number, boolean)
+F: (zero, isZero, add, next, equal)
+A: (where x, y are natual numbers)
+isZero(zero()) -> true
+isZero(next(natnum)) -> false
+add(y, zero()) -> y
+add(next(y), x) -> next(add(y, x))
+equal(zero(), y) -> if isZero(y) then true else false
+equal(next(x), next(y)) -> equal(x, y)
+
+ADT -> becomes specification
+
+
+Implementation
+-Refine & Coding
+1) Implement data structures
+    chess board => 2d array
+    courses => Tree (linked nodes)
+2) write algothms for operations
+3) write psuedo language algos
+4) complete program code
+-Debugging
+
+
+Example
+
+Step 1)
+Problem Def: to sort a set of n-integers
+    -> more precisely, in descending order
+Input: a set of n-integers
+Output: a sorted list of n-integers
+
+
+Step 2)
+Identifying the Data structure / representation
+// we're getting a set of integers (a1, a2, a3, ..., an)
+// we need to sort
+// so we need operations
+select(set, key) -> a (an item)
+updating(set, key, a) -> set
+
+Designing Algothms
+// lets sort set in place, left to right
+1) choose the largest item from remaining set (i being our iterator)
+    a[j] = max{a[i]} (0 lt i lt n)
+2) swap a[i] and a[j]
+...repeat n-1 times
+
+
+
+
+
+ADT Array:
+    a set of pairs, where each pair has an index and value. the index is unique,
+    the value is typed (i.e., arrays are homogeneous)
+
+    Operations:
+        create() -> a
+        select(a, i) -> v
+        update(a, i, v) -> a
+    Axioms:
+        select(create(),i) -> error/undefined
+        select(update(a,i,v), j) -> i == j then v else select(a,j)
+
+
+ADT Ordered List:
+    a set of items ordered in some meaningful way
+
+    Operations:
+        traversing a OL LtoR (or RtoL)
+        reading (retrieve)
+        update (store)
+        delete
+        insert
+        length
+
+// can implemented as array, but keep in mind the overhead for inserts and deletes
+// as all items after i will need to shift (as apposed to a linked list)
