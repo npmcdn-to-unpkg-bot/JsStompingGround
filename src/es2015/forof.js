@@ -11,9 +11,9 @@ function greetPeeps(peeps) {
 
 module.exports = {
 	test: function() {
-		
-		myFs.loadFileAsJson('./data/people.json')
+
+		myFs.loadFileAsJson('../../data/people.json')
 			.then(greetPeeps)
 			.catch(x => log('ERR', x));
-	}
+	},
 }

@@ -2,6 +2,11 @@ var util = require('util');
 var stdin = process.stdin;
 var chokidar = require('chokidar');
 // var EXIT_CONDITION = false;
+var log = console.log;
+
+clear();
+// var repl = require('repl');
+// var replSvr = repl.start({prompt:'test>'});
 
 stdin.resume();
 stdin.setEncoding('utf8');
@@ -13,7 +18,7 @@ stdin.on('data', function (text) {
 });
 
 // , {ignored: /[\/\\]\./}
-chokidar.watch(['./*.js','./es2015/*.js','./puzzles/*.js'])
+chokidar.watch(['./src'])
         .on('change', function(path) {
             var key = require.resolve('./' + path);
             delete require.cache[key];
@@ -22,10 +27,11 @@ chokidar.watch(['./*.js','./es2015/*.js','./puzzles/*.js'])
             var action = hasTest ? 'test()'
                                  : 'Did you forget to export a test function?';
 
+            clear();
             makeCmdHeader([path, action]);
             try {
                 mod.test();
-            } catch(err) { console.log(err) }
+            } catch(err) { log(err) }
         });
 
 
@@ -33,7 +39,6 @@ chokidar.watch(['./*.js','./es2015/*.js','./puzzles/*.js'])
 function makeCmdHeader(cmdHeader) {
     var line = '##################################################';
     var prefix = '#  ';
-    var log = console.log;
 
     log(line);
     for(var i = 0, len = cmdHeader.length; i < len; i++) {
@@ -43,10 +48,13 @@ function makeCmdHeader(cmdHeader) {
 }
 
 
+function clear() {
+    process.stdout.write('\x1Bc');
+    process.stdout.write('\u001B[2J\u001B[0;0f');
+}
 
-//var repl = require('repl');
-//var replSvr = repl.start({prompt:'sky>'});
 
-//(function wait () {
+
+// (function wait () {
 //   if (!EXIT_CONDITION) setTimeout(wait, 1000);
-//}.bind(this))();
+// }.bind(this))();

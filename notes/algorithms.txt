@@ -8,13 +8,13 @@ sequence of steps that solve a problem, and have the following properties
 
 
 
-Algothms
-Common Style
+Algorithms
+
 ... for each problem
 1) Identify the data objects
 2) What is to be accomplished
 3) Determine how to represent these objects
-4) Design complete algothms
+4) Design complete algorithms
 5) Analyze performance
 ...and then
 6) Implementing (program design)
@@ -79,8 +79,8 @@ Implementation
 1) Implement data structures
     chess board => 2d array
     courses => Tree (linked nodes)
-2) write algothms for operations
-3) write psuedo language algos
+2) write algorithms for operations
+3) write pseudo language algos
 4) complete program code
 -Debugging
 
@@ -102,7 +102,7 @@ Identifying the Data structure / representation
 select(set, key) -> a (an item)
 updating(set, key, a) -> set
 
-Designing Algothms
+Designing Algorithms
 // lets sort set in place, left to right
 1) choose the largest item from remaining set (i being our iterator)
     a[j] = max{a[i]} (0 lt i lt n)
