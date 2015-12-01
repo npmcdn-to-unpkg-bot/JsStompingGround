@@ -13,7 +13,7 @@ stdin.on('data', function (text) {
 });
 
 // , {ignored: /[\/\\]\./}
-chokidar.watch(['./*.js','./es2015/*.js'])
+chokidar.watch(['./*.js','./es2015/*.js','./puzzles/*.js'])
         .on('change', function(path) {
             var key = require.resolve('./' + path);
             delete require.cache[key];
@@ -27,19 +27,19 @@ chokidar.watch(['./*.js','./es2015/*.js'])
                 mod.test();
             } catch(err) { console.log(err) }
         });
-        
+
 
 
 function makeCmdHeader(cmdHeader) {
     var line = '##################################################';
     var prefix = '#  ';
     var log = console.log;
-    
+
     log(line);
     for(var i = 0, len = cmdHeader.length; i < len; i++) {
         log(prefix + cmdHeader[i]);
     }
-    log(line);    
+    log(line);
 }
 
 

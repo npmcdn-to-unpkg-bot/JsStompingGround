@@ -25,9 +25,14 @@ function crunch(str) {
         compressed = '',
         currentChar = '',
         currentCount = 0,
-        i = 0;
+        i = 0,
+        numGuard = /[0-9]{1}/;
+
     if(typeof toCompress !== 'string') {
         throw Error('Input must be of type string.');
+    }
+    if(numGuard.test(toCompress)) {
+        throw Error('Input cannot contain numbers.');
     }
 
     for(; i < toCompress.length; i++) {
@@ -61,8 +66,7 @@ function crunch(str) {
 module.exports = {
     test: function() {
 
-        console.log(crunch('aaaabbbcCCcccdeeeffggggggggggGGgghiiII'))
-
-
+        console.log(crunch('aaaabbbcCCcccdeeeffggggggggggGGgghiiII'));
+        console.log(crunch('aaaabbbcCCcccdeeeffggggggggggGGgghiiII2aaa'));
     },
 }
