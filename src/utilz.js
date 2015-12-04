@@ -8,6 +8,15 @@ if(console && !console.clear) {
 	}
 }
 
+export function log () {
+	if(console && console.log) {
+		var cr = '\r\n';
+	    // var args = Array.prototype.slice.call(arguments);
+	    console.log(...arguments);
+	    console.log(cr);
+	}
+}
+
 export function toType(obj) {
 	return ({}).toString.call(obj).match(/\s([a-z|A-Z]+)/)[1].toLowerCase();
 }
