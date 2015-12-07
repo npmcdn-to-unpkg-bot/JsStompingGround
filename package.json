@@ -9,6 +9,7 @@
     "lint": "eslint ./ --ext .js --ext .jsx"
   },
   "dependencies": {
+    "mongoose": "^4.2.9",
     "react": "^0.14.3"
   },
   "devDependencies": {
