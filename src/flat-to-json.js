@@ -15,10 +15,10 @@ module.exports = {
         console.log('total orientations:', orientations.length);
         console.log('total keywords:', keywords.length);
         console.log('total categories:', categories.length)
-        console.log('total art:', art.length, art);
+        console.log('total art:', art.length);
 
         fs.writeFile(DATA_ROOT + 'alfa-art.json', JSON.stringify(art));
-
+        fs.writeFile(DATA_ROOT + 'alfa-galleries.json', JSON.stringify(galleries));
     },
 }
 
@@ -40,7 +40,8 @@ function getGalleries() {
         return accum;
     }, []);
     return galleries.sort(function(a, b) {
-        return a.order === b.order ? 0 : a.order < b.order ? -1 : 1;
+        return a.order === b.order ? 0
+                                   : a.order < b.order ? -1 : 1;
     });
 }
 
@@ -137,13 +138,11 @@ function getArt() {
 
     var orderedArt = art.slice(0);
     orderedArt.sort(function(a, b) {
-        var aDate = new Date(a.created);
-        var bDate = new Date(b.created);
-        return aDate.getTime() === bDate.getTime() ? a.title === b.title ? 0
-                                                                         : a.title < b.title ? -1
-                                                                                             : 1
-                                                   : aDate < bDate ? -1
-                                                                   : 1;
+        var aDate = new Date(a.created).getTime();
+        var bDate = new Date(b.created).getTime();
+        return aDate === bDate ? a.title === b.title ? 0
+                                                     : a.title < b.title ? -1:1
+                               : aDate < bDate ? -1:1;
     });
     return orderedArt;
 }

@@ -1,6 +1,8 @@
 var util = require('util');
-var stdin = process.stdin;
 var chokidar = require('chokidar');
+var _ = require('lodash');
+
+var stdin = process.stdin;
 // var EXIT_CONDITION = false;
 var log = console.log;
 
@@ -19,7 +21,7 @@ stdin.on('data', function (text) {
 
 // , {ignored: /[\/\\]\./}
 chokidar.watch(['./src'])
-        .on('change', function(path) {
+        .on('change', _.debounce(function(path) {
             var key = require.resolve('./' + path);
             delete require.cache[key];
             var mod = require(key) || {};
@@ -32,7 +34,7 @@ chokidar.watch(['./src'])
             try {
                 mod.test();
             } catch(err) { log(err) }
-        });
+        }, 300));
 
 
 
