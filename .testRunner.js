@@ -20,21 +20,22 @@ stdin.on('data', function (text) {
 });
 
 // , {ignored: /[\/\\]\./}
-chokidar.watch(['./src'])
-        .on('change', _.debounce(function(path) {
-            var key = require.resolve('./' + path);
-            delete require.cache[key];
-            var mod = require(key) || {};
-            var hasTest = mod.hasOwnProperty('test');
-            var action = hasTest ? 'test()'
-                                 : 'Did you forget to export a test function?';
+chokidar
+  .watch(['./src'])
+  .on('change', _.debounce(function(path) {
+    try {
+      clear();
+      var key = require.resolve('./' + path);
+      delete require.cache[key];
 
-            clear();
-            makeCmdHeader([path, action]);
-            try {
-                mod.test();
-            } catch(err) { log(err) }
-        }, 300));
+      makeCmdHeader([path]);
+      var mod = require(key) || {};
+      if(mod.hasOwnProperty('test')) {
+        mod.test();
+      }
+    }
+    catch(err) { log(err.message); }
+  }, 300));
 
 
 
