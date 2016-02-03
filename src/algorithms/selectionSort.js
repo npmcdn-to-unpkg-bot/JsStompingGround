@@ -1,16 +1,12 @@
-let log = console.log;
+import {log, generateRandomIntegers} from '../utils';
+
 
 log('Given an unsorted array of numbers, produce a sorted array.')
-log();
 let unsorted = generateRandomIntegers(20);
 let sorted = JSON.parse(JSON.stringify(unsorted));
 
-log('unsorted');
-log(unsorted.toString());
-log();
-log('sorted');
-log(selectionSort(sorted).toString());
-
+log('unsorted', unsorted.toString());
+log('sorted', selectionSort(sorted).toString());
 
 function selectionSort(a) {
   let i, j, k, t;
@@ -28,16 +24,6 @@ function selectionSort(a) {
   }
   return a;
 }
-
-function generateRandomIntegers(count = 100, max = 1000) {
-  let i, a;
-  a = [];
-  for(i = 0; i < count; i++) {
-    a.push(Math.round(Math.random() * max));
-  }
-  return a;
-}
-
 
 // function selectionSortFirstPass(a) {
 //   let begin = 0;

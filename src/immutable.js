@@ -1,5 +1,5 @@
 import immutable, {Map, List, fromJS} from 'immutable';
-import {log} from './utilz';
+import {log} from './utils';
 
 var jsObj = {
     golfers: [

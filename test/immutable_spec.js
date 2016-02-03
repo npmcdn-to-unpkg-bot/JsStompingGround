@@ -1,6 +1,6 @@
 import immutable, {Map, List, fromJS} from 'immutable';
 import {expect} from 'chai';
-import {log} from '../src/utilz';
+import {log} from '../src/utils';
 
 describe('Immutable Library', () => {
     describe('set()', () => {

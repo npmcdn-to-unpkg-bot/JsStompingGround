@@ -1,19 +1,20 @@
 
-// patch console
-if(console && !console.clear) {
-	console.clear = function () {
-		process.stdout.write('\x1Bc'); // apparently win specific
-		process.stdout.write('\u001B[2J\u001B[0;0f');
-		return;
-	}
+export function generateRandomIntegers(count = 100, max = 1000) {
+  let i, a;
+  a = [];
+  for(i = 0; i < count; i++) {
+    a.push(Math.round(Math.random() * max));
+  }
+  return a;
 }
+
 
 export function log () {
 	if(console && console.log) {
-		var cr = '\r\n';
-	    // var args = Array.prototype.slice.call(arguments);
-	    console.log(...arguments);
-	    console.log(cr);
+		var cr = '\r';
+    // var args = Array.prototype.slice.call(arguments);
+    console.log(...arguments);
+    console.log(cr);
 	}
 }
 
@@ -71,3 +72,12 @@ export function objwalk(obj, level) {
 		}
 	}
 }
+
+
+export default {
+  log,
+  toType,
+  objwalk,
+  protowalk,
+  generateRandomIntegers,
+};

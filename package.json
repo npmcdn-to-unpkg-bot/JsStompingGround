@@ -4,6 +4,7 @@
   "description": "My javascript stomping ground.",
   "main": "src/index.js",
   "scripts": {
+    "play": "babel-node .testRunner.js",
     "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js test/**/*.js*",
     "test:watch": "npm run test -- --watch",
     "lint": "eslint ./ --ext .js --ext .jsx"
