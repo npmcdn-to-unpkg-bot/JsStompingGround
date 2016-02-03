@@ -9,11 +9,12 @@ let sorted = JSON.parse(JSON.stringify(unsorted));
 log('unsorted', unsorted.toString());
 log('sorted', bubbleSort(sorted).toString());
 
+
 function bubbleSort(a) {
-  let k = 0, i, didSwap;
-  while(k < a.length) {
+  let k = a.length, i, didSwap;
+  while(k > 0) {
     didSwap = false;
-    for(i = 0; i < a.length; i++) {
+    for(i = 0; i < k; i++) {
       if(a[i] > a[i+1]) {
         swap(a, i, i+1);
         didSwap = true;
@@ -27,6 +28,24 @@ function bubbleSort(a) {
   return a;
 }
 
+// not really correct, at least not efficient...
+// function bubbleSort(a) {
+//   let k = 0, i, didSwap;
+//   while(k < a.length) {
+//     didSwap = false;
+//     for(i = 0; i < a.length; i++) {
+//       if(a[i] > a[i+1]) {
+//         swap(a, i, i+1);
+//         didSwap = true;
+//       }
+//     }
+//     if(didSwap === false) {
+//       break; // no swapping means we've sorted early
+//     }
+//     k++;
+//   }
+//   return a;
+// }
 
 // function bubbleSort(a) {
 //   let k = 0, i, temp;
