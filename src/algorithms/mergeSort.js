@@ -13,28 +13,53 @@ log('sorted', mergeSort(sorted).toString());
 function mergeSort(a) {
   let k = Math.floor(a.length / 2);
   if(k > 0) {
-    let l = mergeSort(a.slice(0, k));
-    let r = mergeSort(a.slice(k));
-    a = merge(l, r);
+    return merge(mergeSort(a.slice(0, k)), mergeSort(a.slice(k)));
   }
   return a;
 }
 
 function merge(l, r) {
-  // console.log('merging:', l, r);
   let k = l.length + r.length;
   let i = 0, j = 0, a = [];
   l.push(Infinity);
   r.push(Infinity);
   while(k > 0) {
     if(l[i] < r[j]) {
-      a.push(l[i]);
-      i++;
+      a.push(l[i++]);
     } else {
-      a.push(r[j]);
-      j++;
+      a.push(r[j++]);
     }
     k--;
   }
   return a;
 }
+
+
+// function mergeSort(a) {
+//   let k = Math.floor(a.length / 2);
+//   if(k > 0) {
+//     let l = mergeSort(a.slice(0, k));
+//     let r = mergeSort(a.slice(k));
+//     a = merge(l, r);
+//   }
+//   return a;
+// }
+
+// function merge(l, r) {
+//   // console.log('merging:', l, r);
+//   let k = l.length + r.length;
+//   let i = 0, j = 0, a = [];
+//   l.push(Infinity);
+//   r.push(Infinity);
+//   while(k > 0) {
+//     if(l[i] < r[j]) {
+//       a.push(l[i]);
+//       i++;
+//     } else {
+//       a.push(r[j]);
+//       j++;
+//     }
+//     k--;
+//   }
+//   return a;
+// }
