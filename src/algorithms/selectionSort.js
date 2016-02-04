@@ -4,7 +4,7 @@ import {swap} from './sortHelpers';
 
 log('Given an unsorted array of numbers, produce a sorted array.')
 let unsorted = generateRandomIntegers(20);
-let sorted = JSON.parse(JSON.stringify(unsorted));
+let sorted = unsorted.slice();
 
 log('unsorted', unsorted.toString());
 log('sorted', selectionSort(sorted).toString());
