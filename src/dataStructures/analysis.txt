@@ -1,0 +1,6 @@
+                  | Insert  | Search  | Find(min) | Delete(min) |
+
+Unsorted Array    | O(1)    | O(n)    | O(n)      | O(n)        |
+Sorted Array(asc) | O(n)    | O(logn) | O(1)      | O(n)        |
+Linked List       | O(1)    | O(n)    | O(n)      | O(n)        |
+min Heap          | O(logn) |         | O(1)      | O(logn)     | More optimal structure if search is not needed
