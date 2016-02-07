@@ -7,17 +7,19 @@ let unsorted = generateRandomIntegers(20);
 let maxHeap = buildMaxHeap(unsorted.slice());
 
 log('unsorted', unsorted.toString());
-log('max heap', maxHeap.toString());
+verifyMaxHeap(unsorted);
+log('sorted', maxHeap.toString());
+verifyMaxHeap(maxHeap);
+
 
 // leaf count is always floor(n/2) + 1
 // leaf nodes are already max heap (no children with larger values), so we start
 // at the last non leaf and work our way to the root
 function buildMaxHeap(a) {
-  const heapSize = a.length - 1;
-  const lastNonLeaf = Math.floor(heapSize/2);
-  for(let i = lastNonLeaf; i >= 0; i--) {
-    // console.log('buildMaxHeap', i);
-    MaxHeapify(a, i);
+  const heapSize = a.length;
+  const lastNonLeafIndex = Math.floor(heapSize / 2) - 1; // minus 1 for zero-based array
+  for(let i = lastNonLeafIndex; i >= 0; i--) {
+    maxHeapify(a, i);
   }
   return a;
 }
@@ -25,14 +27,13 @@ function buildMaxHeap(a) {
 // for each node, test children for largest value, first left, than right
 // if and when we find largest, we swap parent with largest, and then we recursively
 // call MaxHeapify on the largest node position
-function MaxHeapify(a, i) {
-  console.log('MaxHeapify', a.toString(), i);
-  const heapSize = a.length - 1;
-  const l = i * 2;
-  const r = i * 2 + 1;
-
+function maxHeapify(a, i) {
+  const heapSize = a.length;
+  const l = i * 2 + 1;
+  const r = l + 1;
   let largest = i;
-  if(l < heapSize && a[l] > a[i]) {
+
+  if(l < heapSize && a[l] > a[largest]) {
     largest = l;
   }
   if(r < heapSize && a[r] > a[largest]) {
@@ -40,6 +41,31 @@ function MaxHeapify(a, i) {
   }
   if(largest !== i) {
     swap(a, largest, i);
-    MaxHeapify(a, largest);
+    maxHeapify(a, largest);
+  }
+}
+
+function verifyMaxHeap(a) {
+  const heapSize = a.length;
+  const lastNonLeafIndex = Math.floor(heapSize / 2) - 1; // minus 1 for zero-based array
+  let i = 0, j, l, r, isValid = true;
+
+  while(i <= lastNonLeafIndex) {
+    l = i * 2 + 1;
+    r = l + 1;
+    if(l < heapSize && a[l] >= a[i]) {
+      isValid = false;
+      log(`verifyMaxHeap: array is not a Max Heap @ parent(${i}:${a[i]}), left(${l}:${a[l]})`);
+      break;
+    }
+    if(r < heapSize && a[r] > a[i]) {
+      isValid = false;
+      log(`verifyMaxHeap: array is not a Max Heap @ parent(${i}:${a[i]}), right(${r}:${a[r]})`);
+      break;
+    }
+    i++;
+  }
+  if(isValid) {
+    log('verifyMaxHeap: array is a Max Heap.');
   }
 }
