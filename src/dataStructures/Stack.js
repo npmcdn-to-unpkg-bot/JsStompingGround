@@ -1,56 +1,62 @@
-// strictly academic
 
-export default function() {
-    var top = null;
-    var count = 0;
 
-    this.getCount = function() {
-        return count;
-    }
+export default function StackFactory() {
+  let itemCount = 0;
+  let top = null;
 
-    this.push = function(item) {
-        var node = {
-            data: item,
-            next: null,
-        };
-
-        node.next = top;
-        top = node;
-        count++;
-    }
-
-    this.peek = function() {
-        if(top === null) {
-            return null;
-        } else {
-            return top.data;
+  function Stack() {}
+  Stack.prototype = {
+    push: function(item) {
+      let node = {
+        data: item,
+        next: top,
+      };
+      top = node;
+      itemCount++;
+    },
+    pop: function() {
+      if(top === null) { return null; }
+      let node = top;
+      top = top.next;
+      itemCount--;
+      return node.data;
+    },
+    peek: function() {
+      return top === null
+        ? null
+        : top.data;
+    },
+    toArray: function() {
+      let nodeArray = [];
+      if(top !== null) {
+        let node = top,
+            i = itemCount;
+        while(i) {
+          nodeArray[--i] = node.data;
+          node = node.next;
         }
-    }
-
-    this.pop = function() {
-        if(top === null) {
-            return null;
-        } else {
-            var node = top;
-            top = top.next;
-            if(count > 0) {
-                count--;
-            }
-            return node.data;
+      }
+      return nodeArray;
+    },
+    clear: function() {
+      top = null;
+      itemCount = 0;
+    },
+    contains: function(item) {
+      if(top === null) { return false; }
+      let node = top;
+      while(node !== null) {
+        if(node.data === item) {
+          return true;
         }
-    }
+        node = node.next;
+      }
+      return false;
+    },
+  }
+  Stack.prototype.__defineGetter__('count', function(){
+    return itemCount;
+  });
 
-    this.toArray = function() {
-        var nodeArray = [];
-        if(top !== null) {
-            var node = top,
-                i = count;
-            while(i) {
-                nodeArray[--i] = node.data;
-                node = node.next;
-            }
-        }
-        return nodeArray;
-    }
-
-}
+  return new Stack();
+};

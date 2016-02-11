@@ -1,35 +1,36 @@
 import {log} from '../utils';
 
 // given n, calculate it's factorial
-
-
-log(`factorial of 0 = ${factorial(0)}`);
-log(`factorial of 1 = ${factorial(1)}`);
-log(`factorial of 2 = ${factorial(2)}`);
-log(`factorial of 3 = ${factorial(3)}`);
-log(`factorial of 4 = ${factorial(4)}`);
-log(`factorial of 5 = ${factorial(5)}`);
-log(`factorial of 6 = ${factorial(6)}`);
-log(`factorial of 7 = ${factorial(7)}`);
-log(`factorial of 8 = ${factorial(8)}`);
-log(`factorial of 9 = ${factorial(9)}`);
-log(`factorial of 10 = ${factorial(10)}`);
-
-
 function factorial(n) {
+  if(typeof n !== 'number' || n < 0) return 'Input must be a positive number.'
   if(n === 0 || n === 1) {
     return 1;
   } else {
     return factorial(n - 1) * n;
   }
 }
+for(let i = 0; i <= 10; i++) {
+  log(`factorial of ${i} = ${factorial(i)}`);
+}
+
+
+function loopFactorial(n) {
+  if(typeof n !== 'number' || n < 0) return 'Input must be a positive number.'
+  if(n === 0) return 1;
+  let total = 1;
+  for(let i = 1; i <= n; i++) {
+    total *= i;
+  }
+  return total;
+}
+for(let i = 0; i <= 10; i++) {
+  log(`loopFactorial of ${i} = ${factorial(i)}`);
+}
+
 
 let factCache = [1,1];
-
-log(`memoFactorial of 10 = ${memoFactorial(10)}`);
-log(`memoFactorial cache = ${factCache.toString()}`);
-
 function memoFactorial(n) {
+  if(typeof n !== 'number' || n < 0) return 'Input must be a positive number.'
   if(!!factCache[n]) {
     return factCache[n];
   } else {
@@ -37,3 +38,5 @@ function memoFactorial(n) {
     return factCache[n];
   }
 }
+log(`memoFactorial of 10 = ${memoFactorial(10)}`);
+log(`memoFactorial cache = ${factCache.toString()}`);
