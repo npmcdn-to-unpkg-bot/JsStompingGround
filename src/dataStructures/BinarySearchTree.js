@@ -7,62 +7,106 @@
 // Binary tree has the following properties
 // The element contained by each node is greater than or equal to the elements of that node's children.
 // The tree is a complete or almost complete binary tree.
-// i.e., (filled top down, and left to right, with no empty child nodes)
+export default function BinarySearchTreeFactory() {
 
-import {log, generateRandomIntegers} from '../utils';
+  function BinarySearchTree() {
+    this.root = null;
+  }
+  BinarySearchTree.prototype = {
+    add: function(item) {
+      let newNode = new Node(item);
+      if(this.root === null) {
+        // tree is empty, newNode becomes root
+        this.root = newNode;
+      }
+      else {
+        let node = this.root;
+        // walk tree to find correct position
+        while(!!node) {
+          if(newNode.data < node.data) {
+            // look left
+            if(node.left === null) {
+              node.left = newNode;
+              break;
+            } else {
+              // move left
+              node = node.left;
+            }
+          } else if(newNode.data > node.data) {
+            // look right
+            if(node.right === null) {
+              node.right = newNode;
+              break;
+            } else {
+              // move right
+              node = node.right;
+            }
+          } else {
+            // console.warn(`Push "${item}" failed: duplicate values not allowed.`);
+            break;
+          }
+        }
+      }
+    },
+    contains: function(item) {
+      let node = this.root;
+      while(node !== null) {
+        if(item < node.data) {
+          // go left
+          if(node.left === null) { return false; }
+          node = node.left;
+        } else if(item > node.data) {
+          // go right
+          if(node.right === null) { return false; }
+          node = node.right;
+        } else {
+          // equal
+          return true;
+        }
+      }
+      return false;
+    },
 
 
-function BinarySearchTree() {
+    traverse: function(fn) {
+      inOrder(this.root);
+      // as in left to right
+      function inOrder(node) {
+        if(node !== null) {
+          // left all the way down
+          if(node.left !== null) {
+            inOrder(node.left);
+          }
+          // can't go left any more, perform work on this node
+          fn.call(this, node);
 
-  function Node(val) {
-    this.val = val;
+          // then look to the right
+          if(node.right !== null) {
+            inOrder(node.right);
+          }
+        }
+      }
+    },
+    size: function() {
+      let length = 0;
+      this.traverse(() => { length++ });
+      return length;
+    },
+    toArray: function() {
+      let sorted = [];
+      this.traverse((node) => { sorted.push(node.data); });
+      return sorted;
+    },
+    toString: function() {
+      return this.toArray().toString();
+    },
+  };
+
+  function Node(item) {
+    this.data = item;
     this.left = null;
     this.right = null;
   }
 
-  function BSTFac() {
-    this.root = null;
-  }
-
-  BSTFac.prototype.push = function(val) {
-    if(!this.root) {
-      this.root = new Node(val);
-      return;
-    }
-
-    let newNode = new Node(val);
-    let currentNode = this.root;
-
-    while(currentNode) {
-      if(newNode.val < currentNode.val) {
-        if(currentNode.left === null) {
-          currentNode.left = newNode;
-          break;
-        } else {
-          currentNode = currentNode.left;
-        }
-      } else if(newNode.val > currentNode.val) {
-        if(currentNode.right === null) {
-          currentNode.right = newNode;
-          break;
-        } else {
-          currentNode = currentNode.right;
-        }
-      } else {
-        console.log('dupe', newNode.val);
-        break;
-      }
-    }
-  }
-  return new BSTFac();
+  return new BinarySearchTree();
 }
-
-var items = generateRandomIntegers(20);
-log('random numbers:', items.toString());
-
-var bst = new BinarySearchTree();
-items.forEach(item => {
-  bst.push(item);
-});
-
-log('binary search tree', bst);
