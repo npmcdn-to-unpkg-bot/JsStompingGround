@@ -13,7 +13,7 @@ export default function BinarySearchTreeFactory() {
     this.root = null;
   }
   BinarySearchTree.prototype = {
-    add: function(item) {
+    insert: function(item) {
       let newNode = new Node(item);
       if(this.root === null) {
         // tree is empty, newNode becomes root
