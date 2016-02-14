@@ -30,9 +30,9 @@ chokidar
 
       makeCmdHeader([path]);
       var mod = require(key) || {};
-      if(mod.hasOwnProperty('test')) {
-        mod.test();
-      }
+      // if(mod.hasOwnProperty('test')) {
+      //   mod.test();
+      // }
     }
     catch(err) { log(err.message); }
   }, 300));

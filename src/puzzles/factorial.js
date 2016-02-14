@@ -38,5 +38,10 @@ function memoFactorial(n) {
     return factCache[n];
   }
 }
-log(`memoFactorial of 10 = ${memoFactorial(10)}`);
+log(`memoFactorial of 12 = ${memoFactorial(12)}`);
 log(`memoFactorial cache = ${factCache.toString()}`);
+
+log('approximate e:', factCache.reduce((sum, item) => {
+  sum += 1 / item;
+  return sum;
+}, 0));
