@@ -1,9 +1,45 @@
 import {log} from '../utils';
 
-// given a string, s, determine if it's a palindrome
+// given a word, determine if it's a palindrome
+function isPalindromeWord(input) {
+  return input === input.split('').reverse().join('');
+}
+
+let testWords = [
+  'nope',
+  'madam',
+  '458854',
+];
+
+log('palindrome words');
+testWords.forEach(word=>{
+  log(`Is "${word}" a palindrome? ${isPalindromePhrase(word)}`);
+});
+log('');
+
+function isPalindromeWordAlt(input) {
+  const len = input.length;
+  const half = Math.floor(len / 2);
+  for(let i = 0; i < half; i++) {
+    if(input[i] !== input[len - i - 1]) {
+      return false;
+    }
+  }
+  return true;
+}
+
+log('palindrome words: alternate');
+testWords.forEach(word=>{
+  log(`Is "${word}" a palindrome? ${isPalindromeWordAlt(word)}`);
+});
+log('');
+
+
+
+// given a string, determine if it's a palindrome
 // mixed case and puncuation is allowed.
-function isPalindrome(input) {
-  if(typeof input !== 'string') { throw Error('The function isPalindrome requires a string.')}
+function isPalindromePhrase(input) {
+  if(typeof input !== 'string') { throw Error('The function isPalindromePhrase requires a string.')}
 
   const mask = /[^a-z]+/g;
   return checkPalindrome(input.toLowerCase().replace(mask, ''));
@@ -18,13 +54,13 @@ function isPalindrome(input) {
   }
 }
 
-let test;
+let testPhrases = [
+  'What, the what?!',
+  'Race car!',
+  'Was it a car or a cat I saw?',
+];
 
-test = 'What, the what?!';
-log(`Is "${test}" a palindrome? ${isPalindrome(test)}`);
-
-test = 'Race car!';
-log(`Is "${test}" a palindrome? ${isPalindrome(test)}`);
-
-test = 'Was it a car or a cat I saw?';
-log(`Is "${test}" a palindrome? ${isPalindrome(test)}`);
+log('palindrome phrases');
+testPhrases.forEach(phrase=>{
+  log(`Is "${phrase}" a palindrome? ${isPalindromePhrase(phrase)}`);
+});

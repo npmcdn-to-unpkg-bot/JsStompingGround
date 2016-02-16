@@ -14,7 +14,7 @@ export function log () {
 		var cr = '\r';
     // var args = Array.prototype.slice.call(arguments);
     console.log(...arguments);
-    console.log(cr);
+    // console.log(cr);
 	}
 }
 
