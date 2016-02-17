@@ -1,19 +1,13 @@
-var myFs = require('../readFileAsync');
-var log = console.log;
-var lo = require('lodash');
+import {log} from '../utils';
+
+
+var myFs = require('../node/readFileAsync');
 
 function greet(peep) {
 	log(`hello ${peep.first}!`)
 }
-function greetPeeps(peeps) {
-	lo.map(peeps, x => greet(x));
-}
 
-module.exports = {
-	test: function() {
 
-		myFs.loadFileAsJson('../../data/people.json')
-			.then(greetPeeps)
-			.catch(x => log('ERR', x));
-	},
-}
+myFs.loadFileAsJson('../../data/people.json')
+	.then(peeps=>peeps.map(greet))
+	.catch(x => log('ERR', x));
