@@ -1,20 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
 <head>
-  <meta charset="UTF-8">
+  <meta charset='UTF-8'>
   <title>RxJs Testing</title>
-  
-  <link rel="stylesheet" type="text/css" href='index.css'></link>
+
+  <link rel='stylesheet' type='text/css' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'></link>
+  <link rel='stylesheet' type='text/css' href='index.css'></link>
+
 </head>
 <body>
-  
-  
-  <button id='refresh' type='button'>Click</button>
-  <div id='result'></div>
-  
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.35.0/es6-shim.js"></script>
-  <script src="https://npmcdn.com/@reactivex/rxjs@5.0.0-beta.1/dist/global/Rx.umd.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/0.11.0/fetch.js"></script>
-  <script src="index.js"></script>
+
+  <div class='container'>
+    <div class='row'>
+      <div class='col-xs-2'>
+        <button id='next' type='button'>Next</button>
+      </div>
+      <div class='col-xs-10'>
+        <div id='user'></div>
+      </div>
+    </div>
+  </div>
+
+  <div id='im-a-noob'>
+    <button id='jump' type='button'>Jump</button>
+  </div>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/es6-shim/0.35.0/es6-shim.js'></script>
+  <script src='https://npmcdn.com/@reactivex/rxjs@5.0.0-beta.1/dist/global/Rx.umd.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/fetch/0.11.0/fetch.js'></script>
+  <script src='index.js'></script>
 </body>
 </html>

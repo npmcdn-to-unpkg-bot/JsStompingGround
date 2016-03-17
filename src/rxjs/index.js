@@ -1,51 +1,37 @@
+let lastUserId = 0;
+let userIndex = 0;
+let next = document.getElementById('next');
+let jump = document.getElementById('jump');
+let user = document.getElementById('user');
 
-let $result = document.getElementById('result');
+let nextClick$ = Rx.Observable.fromEvent(next, 'click');
+let jumpClick$ = Rx.Observable.fromEvent(jump, 'click');
+let controller = new Rx.Subject();
 
-// test 3
+let req$ = jumpClick$
+  .startWith('startup click')
+  .map(() => 'https://api.github.com/users?since=' + lastUserId);
+let res$ = req$.flatMap(url => Rx.Observable.fromPromise(
+  fetch(url).then(res => res.json())
+).flatMap(e => e)).zip(controller, (x, _) => x);
 
-let req$ = Rx.Observable.of('https://api.github.com/users');
-
-let res$ = req$.flatMap(url => {
-  return Rx.Observable.fromPromise(
-    fetch(url).then(res => res.json())
-  );
-});
-
-res$.subscribe(res => $result.innerHTML = res.map(e => `<img src='${e.avatar_url}' />`));
-
-
-// test 2
-
-// let req$ = Rx.Observable.of('https://api.github.com/users');
-// req$.subscribe(function(url) {
-//   var res$ = Rx.Observable.create(function(observer) {
-//     fetch(url)
-//       .then(res => res.json())
-//       .then(res => observer.next(res))
-//       .catch(err => observer.error(err));
-
-//     return function () {
-//         observer.completed();
-//     };
-//   });
-//   res$.subscribe(res => $result.innerText = JSON.stringify(res));
-// });
+res$.subscribe(
+  res => {
+    user.innerHTML = `<img src='${res.avatar_url}' />`;
+    lastUserId = res.id;
+    if(++userIndex % 30 === 0) { jump.click(); }
+  }
+);
+nextClick$.subscribe(e => controller.next());
 
 
 
 
-// test 1
+// let num$ = Rx.Observable.fromPromise(getItems()).flatMap(e=>e).zip(controller, (x, _) => x);
+// let num$ = Rx.Observable.range(0, 100).zip(controller, (x, _) => x);
+// num$.subscribe(x => console.log(x));
+// nextClick$.subscribe(e => controller.next());
 
-// var source = new Rx.Subject();
-// var i = 0;
-// var cancel = setInterval(function() {
-//   source.next(i++);
-// }, 1000);
-
-// var o = source
-//   .asObservable()
-//   .filter(x => x % 3 === 0);
-  
-  
-// o.subscribe(res => $result.innerText = JSON.stringify(res));
-
+// function getItems() {
+//   return Promise.resolve([0,1,2,3,4,5,6,7,8,9]);
+//}
