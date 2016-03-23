@@ -2,11 +2,12 @@ import {Observable} from 'rxjs';
 import {log} from '../utils';
 
 
-function getStringsMock(input) {
-  const mockSet1 = [`one-${input}`, `two-${input}`, `three-${input}`];
-  const mockSet2 = [`four-${input}`, `five-${input}`, `six-${input}`];
-  const mockSet3 = [`seven-${input}`, `eight-${input}`, `nine-${input}`];
-  
+function getItems(input) {
+  let i = 1;
+  const mockSet1 = new Array(1).fill(`set.${input}.${i++}`);
+  const mockSet2 = new Array(2).fill(`set.${input}.${i++}`);
+  const mockSet3 = new Array(3).fill(`set.${input}.${i++}`);
+
   return Observable.create(function(o) {
     o.next(mockSet1);
     o.next(mockSet2);
@@ -15,21 +16,15 @@ function getStringsMock(input) {
   });
 }
 
-// => [item, item, item]
-getStringsMock('1').subscribe(res => {
-  log(res);
-  log();
-});
+// projects items as they were put onto the bus
+// in this case and array, ex. [item, item, item]
+getItems('1').subscribe(log);
+log();
 
 // works, but nested subscribe is ugly
-getStringsMock('2').subscribe(res => {
-  Observable.from(res).subscribe(url => log(url));
-  log();
-});
+getItems('2').subscribe(res => Observable.from(res).subscribe(log));
+log();
 
-getStringsMock('3')
-.flatMap(res => {
-  log();
-  return Observable.from(res)
-})
-.subscribe(res => log(res));
+getItems('3')
+  .flatMap(res => Observable.from(res))
+  .subscribe(log);
