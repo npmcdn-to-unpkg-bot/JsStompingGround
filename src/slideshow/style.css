@@ -1,0 +1,23 @@
+.slideshow {
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
+.slide {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0.0;
+  transition: opacity .3s;
+}
+.red {
+  background-color: red;
+}
+.blue {
+  background-color: blue;
+}
+.green {
+  background-color: green;
+}
